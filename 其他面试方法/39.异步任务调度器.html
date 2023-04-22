@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    class Scheduler {
+      constructor(max) {
+        this.max = max
+        this.count = 0
+        this.queue = []
+      }
+      async add(fn) {
+        if (this.count >= this.max) {
+          // 用await堵塞住 如果超过或等于最大数量 就先放到数组里 不执行resolve的话就会一直堵塞
+          await new Promise((resolve) => { this.queue.push(resolve) })
+        }
+        this.count++
+        await fn()
+        this.count--
+        // 执行完每一个任务 都看一下queue队列有没有任务 有的话就弹出来执行resolve放行
+        //    这样就可以控制并发任务数
+        this.queue.length && this.queue.shift()()
+      }
+    }
+    const scheduler = new Scheduler(2)
+    function addTask(time, data) {
+      scheduler.add(() => {
+        return task(time, data)
+      })
+    }
+    function task(time, data) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          console.log(data);
+          resolve()
+        }, time)
+      })
+    }
+    addTask(1000, '1');
+    addTask(500, '2');
+    addTask(300, '3');
+    addTask(400, '4');
+  </script>
+</body>
+
+</html>

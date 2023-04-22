@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = [9, 23, 34343, 34, 2, 11, 65, 3, 100]
+        function Sort(arr) {
+            let temp
+            //  初始化间隔  
+            var gap = Math.floor(arr.length / 2)
+            while (gap >= 1) {
+                // 以gap作为间隔进行分组排序
+                for (var i = gap; i < arr.length; i++) {
+                    temp = arr[i]
+                    var j = i
+                    while (arr[j - gap] > temp && j > gap - 1) {
+                        arr[j] = arr[j - gap]
+                        j -= gap
+                    }
+
+                    // 将j位置的元素赋值为temp
+                    arr[j] = temp
+                }
+
+            }
+            return arr
+        }
+        console.log(Sort(arr)); 
+    </script>
+</body>
+
+</html>

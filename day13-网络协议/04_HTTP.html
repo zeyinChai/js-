@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    HTTP是一种 超文本传输协议
+    协议 > 传输 > 超文本
+
+    早起传输文字就是文本    后面有了传输图片，音频，视频等 语义化被扩大了 就称为超文本
+    两台计算机直接进行通信  被称为传输
+    计算机直接的相互通信的规则  被称为协议
+
+    HTTP是一个在计算机世界里面专门在两点之间传输文字 图片 音频等超文本数据的约定和规范
+
+    CDN 它应用了HTTP协议里面的缓存和代理技术,代替服务器响应客户端的请求
+            关键技术是 内存存储和分发技术
+
+    DNS 它将网站转化成IP地址 让计算机去查找
+
+    HTTPS = HTTP + SSL (在HTTP的基础上加了一层SSL层)
+    SSL是依靠证书来验证服务器的身份 它为浏览器和服务器直接是加密的
+
+    HTTPS和HTTP的区别
+        1.
+        HTTP是超文本传输协议 信息是明文传输 存在安全风险
+        HTTPS解决了HTTP不安全的缺陷 因为有SSL安全协议 使得报文能够加密传输
+
+        2.
+        HTTP建立连接相对简单 TCP三次握手后便可进行报文传输
+        HTTPS在TCP三次握手后 还需要进行SSL握手过程 才可以进行加密报文传输
+
+        3.HTTP的端口号是80 HTTPS端口号是443
+</body>
+</html>

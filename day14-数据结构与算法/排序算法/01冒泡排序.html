@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = [9, 23, 34343, 34, 2, 11, 65, 3, 100]
+        // let arr = [1,2,3,4,6]
+        function bubbleSort(arr) {
+            let temp
+            let index = 0
+            for (var j = 0; j < arr.length - 1; j++) {
+            // 如果没有-1 最后比较 length - 1和 length 两个的数据  因为arr[length]取不到 所以需要 arr.length - 1
+                for (var i = 0; i < arr.length - 1 - j; i++) {
+                    if (arr[i] > arr[i + 1]) {
+                        temp = arr[i + 1]
+                        arr[i + 1] = arr[i]
+                        arr[i] = temp
+                        index++
+                    }
+                }
+                if(index ==0) break // 如果index == 0代表后一项始终比前一项大 没有必要循环了
+            }
+            return arr
+        }
+        console.log(bubbleSort(arr)); 
+        // 冒泡排序比较次数 
+        // n-1 + n-2 + n-3 + ... + 1    每次循环把筛选出一个数字放到最后相应位置所以用-1 -2 -3 ...
+        // 时间复杂度为o(n^2)
+    </script>
+</body>
+
+</html>

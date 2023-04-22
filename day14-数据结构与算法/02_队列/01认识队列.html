@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 队列 允许在一点插入元素 另一端删除元素
+        // 前端删除 后端加入
+
+        // 队列基于数组删除元素性能不好 因为删除一个 后面都就会往前移
+        class Queue{
+            constructor(){
+                this.items = []
+            }
+            // 加入
+            enqueue(item){
+                this.items.push(item)
+            }
+            // 删除
+            dequeue(){
+                return this.items.shift()
+            }
+        }
+    </script>
+</body>
+</html>

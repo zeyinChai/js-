@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="nav-btn">nav button</button>
+    <script>
+        class EventBus{
+            constructor(){
+                this.eventMap = {}
+            }
+            on(eventName,eventFn){
+               let eventFns = this.eventMap[eventName]
+                // 查找有没有对应的数据 没有的话 就给一个[]
+               if(!eventFns){
+                this.eventMap[eventName] = []
+               }
+               this.eventMap[eventName].push(eventFn)
+            }
+            emit(eventName,...args){
+                let eventFns = this.eventMap[eventName]
+                if(!eventFns) return 
+                eventFns.forEach(fn => {
+                    fn(...args)
+                })
+            }
+            off(eventName,eventFn){
+                let eventFns = this.eventMap[eventName]
+                if(!eventFns) return 
+                for(let i = 0; i < eventFns.length;i++){
+                    const fn = eventFns[i]
+                    if(fn===eventFn){
+                        eventFns.splice(i,1)
+                        break
+                    }
+                }
+            }
+        }
+        // 类Eventbus 
+        const eventBus = new EventBus()
+        // aside.vue组件中 监听事件
+        eventBus.on('navclick',(data)=>{
+            console.log('navclick listener 01',data);
+        })
+        eventBus.on('navclick',(data)=>{
+            console.log('navclick listener 02',data);
+        })
+
+        // 移除事件
+        const fn = () => {console.log('fn事件');}
+        eventBus.on('navclick',fn)
+        setTimeout(()=>{
+            eventBus.off('navclick',fn)
+        },2000)
+
+        // nav.vue
+        const navBtnEl = document.querySelector('.nav-btn')
+        navBtnEl.onclick = function() {
+            console.log('emit发出事件');
+            eventBus.emit('navclick','@@@@@@@@')
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [{id:1,name:'zs'},{id:2,name:'ls'},{id:1,name:'zs'},{id:2,name:'ls'}]
+        let obj = {}
+        let temp = []
+        arr.forEach(item => {
+            if(obj[item.id]){
+                return
+            }else{
+                obj[item.id] = item.name
+                temp.push(item)
+            }
+        })
+        console.log(temp);
+    </script>
+</body>
+</html>

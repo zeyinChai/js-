@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" class="file">
+    <button class="upload">上传文件</button>
+
+    <script>
+        const uploadBtn = document.querySelector('.upload')
+        uploadBtn.onclick = function(){
+            const xhr = new XMLHttpRequest()
+            xhr.onload = function(){
+                console.log(xhr.response);
+            }
+            xhr.responseType = 'json'
+            xhr.open('post','http://123.207.32.32:1888/02_param/upload')
+            // 用表单上传
+            const fileEl = document.querySelector('.file')
+            const file = fileEl.files[0]
+            const formData = new FormData()
+            formData.append('avatar',file)
+            xhr.send(formData)
+            xhr.setRequestHeader('Content-Type','multipart/form-data')
+            // 进度
+            xhr.onprogress = (e) => {
+                console.log(e);
+            }
+        }
+    </script>
+</body>
+</html>

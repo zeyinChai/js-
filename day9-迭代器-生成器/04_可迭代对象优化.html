@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const info = {
+            friend: ['a', 'b', 'c', 'd'],
+            age:18,
+            height:1.88,
+            [Symbol.iterator]() {
+                // const keys = Object.keys(this)
+                const values = Object.values(this)
+                let index = 0
+                const infoIterator = {
+                    next: ()=> {
+                        // done:Boolean
+                        // value:具体值/undefined
+                        if (index < values.length) {
+                            return { done: false, value: values[index++] }
+                        } else {
+                            return { done: true }
+                        }
+                    }
+                }
+                return infoIterator
+            }
+        }
+       const infoIterator =  info[Symbol.iterator]()
+        console.log(infoIterator.next());
+        console.log(infoIterator.next());
+        console.log(infoIterator.next());
+    </script>
+</body>
+
+</html>

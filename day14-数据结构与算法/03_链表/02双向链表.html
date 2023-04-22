@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 对应节点
+        class Node{
+            constructor(element){
+                this.element = element
+                this.next = null
+            }
+        }
+        // 链接节点
+        class LinkedList{
+            constructor(){
+                this.count = 0
+                this.head = null
+            }
+            push(element){
+                const node = new Node(element)
+                if(this.head === null){
+                    this.head = node
+                }else{
+                    // 默认当前的元素 是头部
+                    let current = this.head
+                    while(current.next !== null){
+                        // 如果当前元素的next指针 不是null的话 
+                        // 就让当前元素current循环指向最后一个元素
+                        current = current.next
+                        // 此时当前元素current 已经是最后一个元素了
+                    }
+                    // 把刚刚push进来的值 赋值给当前元素current的next
+                    current.next = node
+                }
+                this.count++
+            }
+            removeAt(index){
+                if(index < this.count&&index>=0){
+                    if(index === 0){
+                        this.head = this.head.next
+                    }else{
+                        let i = 0                 // 循环的条件判断初始值
+                        let current = this.head   // 1
+                        let preCurrent = null     // 0
+                        while(i !== index){
+                            preCurrent = current
+                            current = current.next
+                            i++
+                        }
+                        // console.log(current,'@',preCurrent);
+                        // 拿到当前index匹配的元素current 让上一个元素的next 指向 当前元素的next 就相当于删除
+                        preCurrent.next = current.next
+                    }
+                    this.count--
+                }
+                return
+            }
+            indexOf(element){
+                let current = this.head
+                for(let i=0;i<this.count;i++){
+                    if(element===current.element){
+                        return i
+                    }else{
+                        current = current.next
+                    }
+                }
+            }
+            remove(element){
+                const index = this.indexOf(element)
+                return this.removeAt(index)
+            }
+            getIndex(index){
+                if(index===0) return this.head
+                let current = this.head
+                for(let i=0;i<this.count;i++){
+                    if(i === index){
+                        return current
+                    }else{
+                        current = current.next
+                    }
+                }
+            }
+            insert(element,index){
+                const node = new Node(element)
+                if(index>=0&&index<=this.count){
+                    if(index===0){
+                        const current = this.head
+                        node.next = current
+                        this.head = node
+                    }else{
+                        let preCurrent = this.getIndex(index-1) // 通过indexof的方法获取上一个节点
+                        let current = preCurrent.next
+                        // 把node的next设置成current 然后把上一个数据的next设置成node 就相当于插入了node
+                        node.next = current
+                        preCurrent.next = node
+                    }
+                }
+                this.count++
+            }
+        }
+        
+        class DoubleNode extends Node{
+            constructor(element){
+                super(element)
+                this.prev = null
+            }
+        }
+        class DoubleLinkedList extends LinkedList{
+            constructor(){
+                super()
+                // tail相当于指针 在最后一个位置
+                this.tail = null
+            }
+            push(element){
+                const node =new DoubleNode(element)
+                if(this.head===null){
+                    this.head = node
+                    this.tail = node
+                }else{
+                    // this.tail目前是最后一个  但是我们现在新增了一个node 所以需要把之前最后一个的next指向node
+                    this.tail.next = node
+                    // 然后node变成最后一个 所有node的前一个是之前的this.tail
+                    node.prev = this.tail
+                    // 更新tail变成刚刚增加的node
+                    this.tail = node
+                }
+                this.count++
+            }
+            insert(element,index){
+                if(index>=0&&index<=this.count){
+                    const node = new DoubleNode(element)
+                    let current = this.head
+                    if(index===0){
+                        if(this.head===null){
+                            this.head = node
+                            this.tail = node
+                        }else{
+                            node.next = this.head
+                            this.head.prev = node
+                            this.head = node
+                        }
+                    }else if(index===this.count){
+                        this.tail.next = node
+                        node.prev = this.tail
+                        this.tail = node
+                    }else{
+                        const preCurrent = this.getIndex(index-1)
+                        current = preCurrent.next
+
+                        node.next = current
+                        current.prev = node
+                        preCurrent.next = node
+                        node.prev = preCurrent
+                    }
+                    this.count++
+                }
+            }
+            removeAt(index){
+                if(index>=0&&index<this.count){
+                    let current = this.head
+                    if(index===0){
+                        this.head = current.next
+                        if(this.count===1){
+                            this.tail = null
+                        }else{
+                            this.head.prev = null
+                        }
+                    }else if(index===this.count-1){
+                        current = this.tail
+                        this.tail = current.prev
+                        this.tail.next = null
+                    }else{
+                        let preCurrent = this.getIndex(index-1)
+                        current = preCurrent.next
+                        preCurrent.next = current.next
+                        current.next.prev = preCurrent
+                    }
+                    this.count--
+                }
+            }
+            getHead(){
+                return this.head
+            }
+            getTail(){
+                return this.tail
+            }
+        }
+        const list = new DoubleLinkedList()
+        list.push(100)
+        list.push(200)
+        list.push(300)
+        list.push(400)
+        list.push(500)
+        // list.insert(999,0)
+        // list.insert('你好',1)
+        list.removeAt(2)
+        console.log(list);
+    </script>
+</body>
+</html>

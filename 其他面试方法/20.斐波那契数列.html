@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function fibonacci(n){
+        //     if(n == 1 || n == 2){
+        //         return 1
+        //     }
+        //     return fibonacci(n - 2) + fibonacci(n - 1)
+        // }
+        // console.log(fibonacci(30));
+        // 当fibonacc(3) 就重复就重复计算了
+
+        let fib = function(n, prev=1, next=1) {
+            if(n <= 2) {
+                return next
+            }
+            return fib(n-1, next, prev + next)
+        }
+        console.log(fib(10));
+
+        // 10  (10,1,1)
+        // 9   (9,1,2)
+        // 8   (8,2,3)
+        // 7   (7,3,5)
+        // 6   (6,5,8)
+        // 5   (5,8,13)
+        // 4   (4,13,21)
+        // 3   (3,21,34)    (2,1,2)
+        
+    </script>
+</body>
+</html>

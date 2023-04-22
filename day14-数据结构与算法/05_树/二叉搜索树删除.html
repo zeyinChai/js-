@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const compare = {
+            less: -1,
+            bigger: 1,
+            equ: 0
+        }
+        class Node {
+            constructor(key) {
+                this.key = key
+                this.left = null
+                this.right = null
+            }
+        }
+        class BST {
+            constructor() {
+                this.root = null
+            }
+            insert(key) {
+                if (this.root === null) {
+                    this.root = new Node(key)
+                } else {
+                    // 需要递归 判断root跟和这个值的大小
+                    this.insertNode(this.root, key)
+                }
+            }
+            compare(a, b) {
+                if (a === b) {
+                    return compare.equ
+                }
+                return a < b ? compare.less : compare.bigger
+            }
+            insertNode(node, key) {
+                if (this.compare(key, node.key) === compare.less) {
+                    if (node.left == null) {
+                        node.left = new Node(key)
+                    } else {
+                        // 如果这个key比node小的话 就让node的左边和这个key继续比较
+                        this.insertNode(node.left, key)
+                    }
+                } else if (this.compare(key, node.key) === compare.bigger) {
+                    if (node.right == null) {
+                        node.right = new Node(key)
+                    } else {
+                        this.insertNode(node.right, key)
+                    }
+                }
+            }
+            // 获取二叉树最小值
+            min(current = this.root) {
+                // 从根开始 如果左边的left不为空 就一直取current.left只到为空 说明它就是最小值
+                while (current.left != null) {
+                    current = current.left
+                }
+                return current
+            }
+            // 获取二叉树最大值
+            max() {
+                let current = this.root
+                while (current.right != null) {
+                    current = current.right
+                }
+                return current.key
+            }
+            remove(key) {
+              this.root = this.removeNode(this.root, key)
+            }
+            removeNode(node, key) {
+                if (node === null) {
+                    return null
+                }
+                // 如果传入的值 比node.key可以要小的话 就那node.left和他比
+                if (this.compare(key, node.key) === compare.less) {
+                    node.left = this.removeNode(node.left, key)
+                    return node
+                } else if (this.compare(key, node.key) === compare.bigger) {
+                    node.right = this.removeNode(node.right, key)
+                    return node
+                } else {
+                    if (node.left == null && node.right == null) {
+                        node = null
+                        return node
+                    }
+                    if(node.left == null){
+                        // 如果左边是空 右边有值的话 就把右边边的值返回给上面
+                        node = node.right
+                        return node
+                    }else if(node.right==null){
+                        // 如果右边是空 左边有值的话 就把左边的值返回给上面
+                        node = node.left
+                        return node
+                    }
+                    // 找到最小的
+                    const target = this.min(node.right)
+                    node.key = target.key
+                    node.right = this.removeNode(node.right,target.key)
+                    return node
+                }
+            }
+        }
+        let mytree = new BST()
+        const cb = function (data) {
+            console.log(data);
+        }
+        mytree.insert(3)
+        mytree.insert(2)
+        mytree.insert(5)
+        mytree.insert(4)
+        mytree.insert(6)
+
+        // mytree.remove(1)
+        // mytree.remove(3)
+        mytree.remove(5)
+        console.log(mytree);
+    </script>
+</body>
+
+</html>

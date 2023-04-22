@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 未优化
+        // fetch('http://123.207.32.32:8000/home/multidata').then(res=>{
+        //     // 1.获取到response
+        //     const response = res
+        //     // 2.从response流中获取具体的结果
+        //     response.json().then(res=>{
+        //         console.log(res);
+        //     })
+        // }).catch(err => {
+        //     console.log('err',err);
+        // })
+
+        // 优化方式一
+        // fetch('http://123.207.32.32:8000/home/multidata').then(res=>{
+        //     // 1.获取到response
+        //     const response = res
+        //     // 2.获取具体的结果
+        //     return response.json()
+        // })
+        // .then(res=>{
+        //     console.log(res);
+        // })
+        // .catch(err => {
+        //     console.log('err',err);
+        // })
+
+        // 优化方式二
+        // async function getData() {
+        //   const response = await fetch('http://123.207.32.32:8000/home/multidata')
+        //   const res = await response.json()
+        //   console.log('res:',res);
+        // }
+        // getData()
+
+        // post请求
+        async function getData() {
+            const response = await fetch('http://123.207.32.32:1888/02_param/postjson', {
+                method: 'post',
+                // headers: {
+                //     'Content-type':'application/json'
+                // },
+                // body: {
+                //     name: 'why',
+                //     age: 18
+                // }
+            })
+            const res = await response.json()
+            console.log('res:', res);
+        }
+        getData()
+    </script>
+</body>
+
+</html>

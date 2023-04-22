@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = [12,34,342,13,23,67,43,5]
+
+        function sortFn(arr){
+            let temp
+            for(let i = 0;i<arr.length-1;i++){
+                let flag = 0
+                for(let j = 0;j<arr.length-1-i;j++){
+                    if(arr[j]>arr[j+1]){
+                        temp = arr[j]
+                        arr[j] = arr[j+1]
+                        arr[j+1] = temp
+                        flag++
+                    }
+                }
+                if(flag==0){break}
+            }
+            return arr
+        }
+
+        console.log(sortFn(arr));
+    </script>
+</body>
+</html>

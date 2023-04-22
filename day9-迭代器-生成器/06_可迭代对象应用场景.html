@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.特定语法
+        const names = ['a','b','c']
+        const info = {
+            name:'why',
+            age:18,
+            height:1.88
+        }
+        function foo(...args) {
+            console.log(args);
+        }
+        foo(...names)         // 数组是可迭代对象  所以可以用拓展运算符
+        // foo(...info)         info是不可迭代对象 所以不能用拓展运算符
+
+        // 2.一些类的构造方法中,也需要传入可迭代对象
+        const set = new Set(['aaa','bbb','ccc'])
+        const set2 = new Set('abc')                 // 字符串也是个可迭代对象
+        console.log(set2);
+
+        // 3.一些常用的方法
+        // Promise.all()
+        // Array.from()
+    </script>
+</body>
+</html>

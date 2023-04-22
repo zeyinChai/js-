@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function requestData(data) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(data)
+                }, 1500)
+            })
+        }
+        // async await原理
+        function* getData() {
+            // 不想使用promise链式的then 又想确异步的请求保按顺序执行
+            const res1 = yield requestData('1')
+            console.log(res1);
+            const res2 = yield requestData('2')
+            console.log(res2);
+            const res3 = yield requestData('3')
+            console.log(res3);
+        }
+        const generator = getData()
+
+        // async await会对这里进行优化
+        generator.next().value.then(res1 => {
+            generator.next(res1).value.then(res2 => {
+                generator.next(res2).value.then(res3 => {
+                    generator.next(res3)
+                })
+            })
+        })
+        
+    </script>
+</body>
+
+</html>

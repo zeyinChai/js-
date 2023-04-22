@@ -1,0 +1,7 @@
+ECMA认为undefined是null派生出来的 所以定义他们的值是相同的
+
+不同点
+1.typeof(null) // object 
+  typeof(undefined) // undefined
+2.转化值不一样 Number(null) // 0
+              Number(undefined) // NaN

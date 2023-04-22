@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 生成器函数特点：
+        // 1、带*
+        // 2. 生成器函数代码的执行可以被yield控制
+        // 3. 生成器函数默认在执行时,返回一个生成器对象
+        //         要想执行生成器函数内部的代码    需要调用生成器对象 调用它的next操作
+        //         当遇到yield时 就会暂停
+        function* foo(name1) {
+            console.log('11111111111内部代码',name1);
+            console.log('22222222222内部代码',name1);
+            const name2 = yield   'aaaaaa'                        // yield中止执行 并且可以带一个返回值
+            console.log('33333333333内部代码',name2);
+            console.log('55555555555内部代码',name2);
+            const name3 = yield   'bbbbbb'
+            // return 'bbbbbbb'
+            console.log('66666666666内部代码',name3);
+            console.log('77777777777内部代码',name3);
+            yield   'cccccc'
+        }
+        const generator = foo('第一次next执行')
+        // 调用next方法
+        // console.log(generator.next());       {value: "aaaaaa", done: false}
+        // console.log(generator.next());       {value: "bbbbbb", done: false}
+        // console.log(generator.next());       {value: "cccccc", done: true}
+
+        // 在中间位置直接return
+        // console.log(generator.next());          //  {value: "aaaaaa", done: false}
+        // console.log(generator.next());          //  {value: "bbbbbbb", done: true}
+        // console.log(generator.next());          //  {value: undefined, done: true}
+
+        // 给函数每次执行的时候,传入参数
+        console.log(generator.next());
+        console.log(generator.next('第二次next执行'));
+        console.log(generator.next('第三次next执行'));
+    </script>
+</body>
+</html>

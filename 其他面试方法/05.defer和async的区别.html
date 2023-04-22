@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    defer依赖于页面中的DOM元素  等其他元素加载完毕才加载defer
+    async不依赖于页面的DOM元素
+    <script async></script>
+    <script defer></script>
+
+    通过给script标签设置defer属性 将脚本文件设置为延时加载 当浏览器遇到带有defer属性的script标签时
+        会开启一个线程去下载JS文件 同时继续解析HTML 等HTML解析完毕后 再去执行下载好的JS文件
+
+    async也是开启一个线程去下载JS文件 但是下载好之后会立即执行JS 仍有可能阻塞页面加载
+
+    CSS和JS会阻塞网页的加载 所以一般解决的办法就是 放在<head></head>标签的后面
+    或者给JS文件一个defer或者async 但是async仍有可能造成阻塞
+</body>
+</html>

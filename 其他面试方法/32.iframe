@@ -1,0 +1,4 @@
+什么是 iframe
+    1. iframe是html元素，用于在网页中嵌另一个网页
+    2. iframe默认有一个宽高，存在边界
+    3. iframe是个行内块级元素，可以通过display修改

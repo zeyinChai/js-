@@ -1,0 +1,4 @@
+区别一：interface可以合并声明 type不可以重复定义
+区别二：type声明的需要是&实现继承
+        interface用的是extends
+区别三:type必须先声明后导出

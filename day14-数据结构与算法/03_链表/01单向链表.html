@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 对应节点
+        class Node{
+            constructor(element){
+                this.element = element
+                this.next = null
+            }
+        }
+        // 链接节点
+        class LinkedList{
+            constructor(){
+                this.count = 0
+                this.head = null
+            }
+            push(element){
+                const node = new Node(element)
+                if(this.head === null){
+                    this.head = node
+                }else{
+                    // 默认当前的元素 是头部
+                    let current = this.head
+                    while(current.next !== null){
+                        // 如果当前元素的next指针 不是null的话 
+                        // 就让当前元素current循环指向最后一个元素
+                        current = current.next
+                        // 此时当前元素current 已经是最后一个元素了
+                    }
+                    // 把刚刚push进来的值 赋值给当前元素current的next
+                    current.next = node
+                }
+                this.count++
+            }
+            removeAt(index){
+                if(index < this.count&&index>=0){
+                    if(index === 0){
+                        this.head = this.head.next
+                    }else{
+                        let i = 0                 // 循环的条件判断初始值
+                        let current = this.head   // 1
+                        let preCurrent = null     // 0
+                        while(i !== index){
+                            preCurrent = current
+                            current = current.next
+                            i++
+                        }
+                        // console.log(current,'@',preCurrent);
+                        // 拿到当前index匹配的元素current 让上一个元素的next 指向 当前元素的next 就相当于删除
+                        preCurrent.next = current.next
+                    }
+                    this.count--
+                }
+                return
+            }
+            indexOf(element){
+                let current = this.head
+                for(let i=0;i<this.count;i++){
+                    if(element===current.element){
+                        return i
+                    }else{
+                        current = current.next
+                    }
+                }
+            }
+            remove(element){
+                const index = this.indexOf(element)
+                return this.removeAt(index)
+            }
+            getIndex(index){
+                if(index===0) return this.head
+                let current = this.head
+                for(let i=0;i<this.count;i++){
+                    if(i === index){
+                        return current
+                    }else{
+                        current = current.next
+                    }
+                }
+            }
+            insert(element,index){
+                const node = new Node(element)
+                if(index>=0&&index<=this.count){
+                    if(index===0){
+                        const current = this.head
+                        node.next = current
+                        this.head = node
+                    }else{
+                        let preCurrent = this.getIndex(index-1) // 通过indexof的方法获取上一个节点
+                        let current = preCurrent.next
+                        // 把node的next设置成current 然后把上一个数据的next设置成node 就相当于插入了node
+                        node.next = current
+                        preCurrent.next = node
+                    }
+                }
+                this.count++
+            }
+        }
+        let list =new LinkedList()
+        list.push(100)
+        list.push(200)
+        list.push(300)
+        list.push(400)
+        list.push(500)
+
+        // list.removeAt(2)
+        // list.remove(500)
+        list.insert(350,0)
+        console.log(list);
+    </script>
+</body>
+</html>

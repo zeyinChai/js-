@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text">
+
+    <script>
+        const inputDom = document.querySelector('input')
+        inputDom.addEventListener('input',debounce(()=>{
+            console.log('发送请求');
+        }))
+
+        // 当用户输入完毕才发送一次http请求
+        function debounce(fn){
+            let timer = null
+            return function(){
+                if(timer){
+                    clearTimeout(timer) 
+                }
+                timer = setTimeout(()=>{
+                    fn()
+                },1500)
+            }
+        }
+    </script>
+</body>
+</html>

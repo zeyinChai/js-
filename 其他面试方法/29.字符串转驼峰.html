@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const str = '--webit-color-sda'
+        function toCamal(str){
+            var strArr = str.split('-')
+            console.log(strArr);
+            for(var i = 0; i<strArr.length;i++){
+                if(strArr[i]==''){
+                    strArr.splice(i,1)
+                    i--
+                }else{
+                    strArr[i] = strArr[i].substring(0,1).toUpperCase() + strArr[i].substring(1)
+                }
+            }
+            strArr[0] = strArr[0][0].toLowerCase() + strArr[0].substring(1)
+            console.log(strArr.join(''));
+        }
+        toCamal(str)
+    </script>
+</body>
+</html>

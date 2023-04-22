@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const xhr = new XMLHttpRequest()
+
+        // onload是完成时
+        xhr.onload = function(){
+            console.log(xhr.response);
+        }
+        // 告知xhr获取的数据类型    默认是text所以会被解析成字符串
+        xhr.responseType = 'json' 
+
+        // 第三个参数 true变为异步请求 false为同步请求
+        xhr.open('get','http://123.207.32.32:8000/home/multidata')
+
+        xhr.send()
+
+    </script>
+</body>
+</html>

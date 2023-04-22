@@ -1,0 +1,38 @@
+当一个请求url的协议、域名、端口三种之间任意一个与当前页面的url不同既为跨域
+协议:http https
+域名:www.qq.com和www.baidu.com 的qq/baidu是域名
+端口:www.qq.com:8080和www.baidu.com：8081 8080和8081是端口
+                        跨域就是可以发送请求 但是数据回不来
+
+解决跨域JSONP
+缺点：只支持GET请求
+<script>
+        getData(res){
+                console.log(res)
+        }
+</script>
+<script src='http://www.baidu.com/?callback=getData'></script>
+
+网页通过添加一个<script>元素，
+        向服务器请求 JSON 数据，服务器收到请求后，将数据放在一个指定名字的回调函数的参数位置传回来
+
+CORS
+XMLHttpRequest发送请求的时候，如果不同源，header{Origin}
+服务器设置("Access-Contral-Allow-Origin","*")   就可以允许所有资源被分享
+
+vue.react中
+Webpack本地代理
+devServer里面有个proxy
+proxy:{
+        target:
+        changeOrigin:
+        pathWrite:
+}
+        实际上就是加了一个服务器中间人(中间人也是同样的端口 比如客户端是3000 则中间人也是3000)
+                这个服务器没有AJAX引擎
+                        客户端数据发给中间人 由中间人接收 发给服务器
+                                服务器返回数据给中间人(由于没AJAX引擎所有没有同源策略限制) 
+                                中间人再给客户端
+
+
+

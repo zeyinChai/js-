@@ -1,0 +1,98 @@
+1. 水平居中的方法:
+行内元素： 父盒子使用text-align:center 定位 父盒子flex
+块级元素:  设置宽度 margin:0 auto 
+           定位 子绝父相 top:50% left:50% tansform:translate:(-50%)
+           使用flex
+水平垂直居中：定位+缩放自身的50%
+
+2. 垂直居中的方法:
+行内元素: 父亲设置元素的高度和行高相同
+          vertical-align:center 
+块级元素: 定位 子绝父相
+          使用flex
+
+3. CSS的优先级:
+    行内样式 > id选择器 > 类选择器 > 标签选择器 > 通配符* > 继承
+    
+    !important > 行内样式
+ 
+4. 如果外边距塌陷这样的怎么解决: 1.overflow:hidden 
+                                2.给父元素加边框boder 
+                                3.给父级或者子集display:inline-block(外边距塌陷只会发生在块级元素,所有变成inline-block)
+                                4.设置内边距
+
+5. 怎么设置0.5px边框:定位+伪元素+transfrom缩放
+
+6. BFC的理解:
+BFC块级格式化上下文,是一块独立的渲染区域(触发了BFC,这块区域就是一块独立的渲染区域)
+会将处于BFC的内容 和 处于BFC外的内容 隔离
+
+触发BFC方式
+1.定位: position absolute/fixed
+2.float: left/right 浮动的元素多个堆叠在一起 会互相隔开
+3.overflow:非visible hidden/auto/scroll
+4.display:inline-block
+BFC应用:
+1.处理块级元素,上下margin合并的问题
+2.处理margin塌陷
+3.清除浮动
+4.实现自适应布局
+    左边固定 右边自适应
+        flex => display:flex 左边定宽, 右边 flex:1
+        浮动 => 先浮动占位置,再中间盒子overflow:hidden
+        定位 => 先定位,再设置padding
+
+7. px、em、rem的区别
+px:     绝对单位
+em:     相对单位,相对于父盒子的font-size
+rem:    相对单位,相当于html根标签
+rpx:    微信小程序独有的,解决屏幕自适应尺寸单位
+
+=> rem 一般可以用于rem适配
+=> rem 适配的原理?
+    1.使用 rem 作为单位 (转换问题 => 利用webpack插件,写px自动转rem )
+        width: 10rem
+
+    2.动态设置不同屏幕下的html font-size (媒体查询, js设置 插件=> flexible.js )
+        360px 屏幕中 html{ font-size: 36px; }  盒子大小360
+        480px 屏幕中 html{ font-size: 48px; }  盒子大小480
+
+8. 清除浮动的影响  ==> 父元素高度塌陷
+清除浮动:清除浮动造成的影响,浮动脱离标准量,不占位置(父盒子不会被撑开) 
+解决方案
+    1.定高法(写死了)
+    2.添加一个空白子盒子,clear:both(引入了不必要的冗余的元素)
+    3.overflow:hidden 溢出隐藏,触发了BFC 解决了浮动的影响(可能会带来内容不可见)
+    4.利用伪元素法 content:'' + clear:both + visiable:hidden
+
+9.css和less和scss
+1.嵌套规则
+2.运算
+3.颜色功能
+
+10.CSS引入方式
+1.行内样式
+2.内联样式(写在style标签的)
+3.外链式(把css写到.css文件里面,然后通过link标签引入)
+4.导入式@important
+
+11.z-index适用范围
+position属性除了static外
+display设置为flex的子元素
+
+12.图片底部有缝隙
+这是因为对齐的方式有问题
+img{
+    vertical-align:bottom
+}
+或者 
+img{
+    display:flex
+}
+
+13.隐藏元素
+    1.display:none
+    2.visibility:hidden
+    3.opacity:0
+    4.position移除屏幕之外
+    5.overflow:hidden
