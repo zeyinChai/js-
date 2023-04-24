@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            height: 500px;
+            background-color: coral;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <img id="image" src="">
+    <script>
+        // 1.传统（获取浏览器可视区域 在window.scroll判断元素距离顶部的高度 来控制图片是否展示）
+        const imgEl = document.getElementById('image')
+        // window.addEventListener('scroll',()=>{     
+        //     if(imgEl.getBoundingClientRect().top <= window.innerHeight){
+        //         imgEl.src = 'https://p2.music.126.net/QcPJfzds8ejF1FPgBaXMTw==/109951163128461676.jpg?param=140y140'
+        //     }
+        // })
+
+        // 2.通过观察者 来直接判断元素是否出现
+        const io = new IntersectionObserver((info)=>{
+            if(info[0].isIntersecting){
+                console.log('元素出现在可视区域');
+                imgEl.src = 'https://p2.music.126.net/QcPJfzds8ejF1FPgBaXMTw==/109951163128461676.jpg?param=140y140'
+            }
+        })
+        io.observe(imgEl)
+
+        // 3.直接给img标签一个 loading="lazy"
+    </script>
+</body>
+</html>

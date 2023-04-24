@@ -7,19 +7,12 @@
     <title>Document</title>
 </head>
 <body>
+    <a href="#users">@@@</a>
     <script>
-        let arr = [{id:1,name:'zs'},{id:2,name:'ls'},{id:1,name:'zs'},{id:2,name:'ls'}]
-        let obj = {}
-        let temp = []
-        arr.forEach(item => {
-            if(obj[item.id]){
-                return
-            }else{
-                obj[item.id] = item.name
-                temp.push(item)
-            }
-        })
-        console.log(temp);
+        function fn(e){
+            console.log(location.hash);
+        }
+        window.onhashchange = fn
     </script>
 </body>
 </html>
