@@ -1,18 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <a href="#users">@@@</a>
+    <style>
+      body {
+        background-color: darkgray;
+      }
+      .box {
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(
+          to top right,
+          #cddc39 0%,
+          #8bc34a 25%,
+          #ffeb3b 100%
+        );
+        font-size: 50px;
+        color: transparent;
+        -webkit-text-stroke: 1px #f00;
+        background-clip: text;
+        -webkit-background-clip: text;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">12345</div>
     <script>
-        function fn(e){
-            console.log(location.hash);
-        }
-        window.onhashchange = fn
+      console.log(new Array(3));
     </script>
-</body>
+  </body>
 </html>
