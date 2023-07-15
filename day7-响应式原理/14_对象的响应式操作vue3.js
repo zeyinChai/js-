@@ -7,7 +7,10 @@ class Depend {
     }
     notify(){
         this.reativeFns.forEach((fn)=>{
-            fn()
+            // console.log(fn);
+            if(fn){
+                fn()
+            }
         })
     }
 }
@@ -16,9 +19,9 @@ let activeReactiveFn = null
 function watchFn(fn) {
     activeReactiveFn = fn
     fn()
-    // activeReactiveFn = null
+    activeReactiveFn = null
 }
-// 封装一个获取depend的函数
+// 封装一个获取depend的函数 全局的map表
 const targetMap = new WeakMap()
 function getDepend(target,key){
     let map = targetMap.get(target)     // 从weakmap结构里找存储的map值
@@ -64,11 +67,19 @@ const info = {
 }
 const infoProxy  = Observe(info)
 
+// watchFn其实就是template模板编译后 把里面的数据塞到这里
 watchFn(()=>{
     console.log(infoProxy.address);
     console.log(infoProxy.height);
 })
+
+watchFn(()=>{
+    console.log(infoProxy.address);
+})
+console.log('========================>修改数据');
 infoProxy.height = 2.88
+// infoProxy.address = '北京市'
+
 
 //    Vue中的 data 中每个属性都会被创建一个Dep对象,并且解析el时进行视图的初始化如果html中有多个地方
 //       用到该属性,则每个地方会将生成一个Watcher的实例放入到该属性对应Dep实例的subs数组

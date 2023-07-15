@@ -31,6 +31,8 @@ Student.prototype.studying = function() {
 var stu1 = new Student()
 var stu2 = new Student()
 
+console.log(stu1,stu1);
+
 // 修改引用的值
 stu1.friends.push('zs') 
 

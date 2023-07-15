@@ -15,7 +15,7 @@
             console.log(xhr.response);
         }
         // 告知xhr获取的数据类型    默认是text所以会被解析成字符串
-        xhr.responseType = 'json' 
+        xhr.responseType = 'json'  // 如果不指定json 就会按照默认text来解析成字符串
 
         // 第三个参数 true变为异步请求 false为同步请求
         xhr.open('get','http://123.207.32.32:8000/home/multidata')

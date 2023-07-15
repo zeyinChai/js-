@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box{
+        width: 50px;
+        height: 50px;
+        background-color: aquamarine;
+        cursor: move;
+        user-select: none;
+      }
+      .container{
+        margin-top: 60px;
+       width: 200px;
+       height: 200px;
+       background-color: palegoldenrod;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box" draggable="true" id="box"></div>
+    <div class="container" id="containerEl"></div>
+    <script>
+      const boxEl = document.getElementById('box')
+      const containerEl = document.getElementById('containerEl')
+      boxEl.addEventListener('dragstart',(e)=>{
+        // console.log(e);
+        e.dataTransfer.dropEffect = 'move'
+      })
+      boxEl.addEventListener('drag',(e)=>{
+        // console.log(e);
+      })
+      boxEl.addEventListener('drag',(e)=>{
+        // console.log(e);
+      })
+      containerEl.addEventListener('dragover',(e)=>{
+        e.preventDefault()
+        console.log(e);
+      })
+      containerEl.addEventListener('drop',(e)=>{
+        console.log(e,'drop');
+      })
+      console.log(boxEl);
+    </script>
+  </body>
+</html>

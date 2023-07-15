@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+       *   1.堆结构是一颗完全二叉树
+       *   2.分为最大堆和最小堆
+       *       获取最大值或者最小值或者最x值 用堆
+       */
+
+      class Heap {
+        constructor() {
+          this.data = [];
+        }
+        // 转换位置
+        swap(i, j) {
+          const temp = this.data[i];
+          this.data[i] = this.data[j];
+          this.data[j] = temp;
+        }
+        // 方法
+        insert(value) {
+          this.data.push(value);
+          // 跟父元素进行对比 如果比父元素大 就和父元素换位置（上滤）
+          let index = this.data.length - 1;
+          while (index > 0) {
+            let parentIndex = Math.floor((index - 1) / 2);
+            if (this.data[index] <= this.data[parentIndex]) {
+              break;
+            }
+            this.swap(index, parentIndex);
+            index = parentIndex;
+          }
+        }
+        delete() {}
+        // 提取
+        extract() {
+          if (this.data.length === 0) return undefined;
+          if (this.data.length === 1) return this.data.pop();
+
+          // 提取返回需要的最大值
+          const topValue = this.data[0];
+          this.data[0] = this.data.pop();
+
+          let index = 0
+          // 如果都没有左子节点了 就结束循环
+          while (2*index+1<this.data.length) {
+            let leftChildIndex = 2 * index + 1;
+            let rightChildIndex = leftChildIndex + 1;
+            let largerIndex = leftChildIndex;
+            if (
+              rightChildIndex < this.data.length &&
+              this.data[rightChildIndex] > this.data[leftChildIndex]
+            ) {
+              largerIndex = rightChildIndex;
+            }
+
+            if (this.data[index] >= this.data[largerIndex]) {
+              break;
+            }
+            this.swap(index, largerIndex);
+            index = largerIndex
+          }
+
+          return topValue;
+        }
+        peek() {
+          return this.data[0];
+        }
+        size() {
+          return this.data.length;
+        }
+        buildHeap() {}
+      }
+      const arr = [19, 100, 36, 17, 3, 25, 1, 2, 7];
+      const heap = new Heap();
+      for (let item of arr) {
+        heap.insert(item);
+      }
+      // heap.insert(133);
+      console.log(heap.extract());
+      console.log(heap.data);
+    </script>
+  </body>
+</html>

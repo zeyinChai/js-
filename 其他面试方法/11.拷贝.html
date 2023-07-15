@@ -1,55 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <script>
-//         浅拷贝
-//         1.拓展运算符
-//         2.for in循环
+      //         浅拷贝
+      //         1.拓展运算符
+      //         2.for in循环
 
+      //          深拷贝
+      //          1.浅拷贝 + 递归(判断如果值是不是Objec直接return数据)
+      //          2.JSON.parse(JSON.stringfy()) 缺点： undefined、symbol和函数会被忽略
 
-//          深拷贝
-//          1.浅拷贝 + 递归(判断如果值是不是Objec直接return数据)
-//          2.JSON.parse(JSON.stringfy()) 缺点： undefined、symbol和函数会被忽略
-
-
-        const oldObj = {
-            name:'zs',
-            age:18,
-            colors:['orange','red'],
-            friend:{
-                name:'小黑'
-            }
+      const oldObj = {
+        name: "zs",
+        age: 18,
+        colors: ["orange", "red"],
+        friend: {
+          name: "小黑",
+        },
+        set:new Set(['abc',123]),
+        aaa:Symbol('abc'),
+        [Symbol()]:'安好',
+      };
+      oldObj.obj = oldObj
+      // 定义temp来解决循环引用的问题
+      let temp = {}
+      function deepClone(obj) {
+        // 如果值是symbol类型
+        if(typeof obj === 'symbol'){
+            return Symbol(obj.description)
         }
-        function deepClone(obj){
-            if(typeof obj !== 'object' || obj == null){
-                return obj
-            }
-
-            let result
-
-            if(obj instanceof Array){
-                result = []
-            }else{
-                result = {}
-            }
-
-            for(let key in obj){
-                result[key] = deepClone(obj[key])
-            }
-            return result
+        // 如果是普通类型 并且不是symbol和null的情况下 才直接return
+        if (typeof obj !== "object" || obj == null) {
+          return obj;
         }
-        const newObj = deepClone(oldObj)
-        newObj.colors.push('123')
-        console.log(newObj,oldObj);
+        // 解决循环引用问题
+        if(temp[obj]){
+          return temp[obj]
+        }
+
+        let result;
+
+        if (obj instanceof Array) {
+          result = [];
+        } else {
+          result = {};
+        }
+        
+        temp[obj] = result
+
+        // 如果是set类型
+        if (obj instanceof Set) {
+          const newSet = new Set();
+          for (let setItem of obj) {
+            newSet.add(deepClone(setItem));
+          }
+          return newSet;
+        }
+
+        // 遍历普通的key
+        for (const key in obj) {
+          result[key] = deepClone(obj[key]);
+        }
+        // 单独遍历symbol为key              for in是遍历不出来symbol为key的情况的所以需要单独遍历
+        const symbolKeys = Object.getOwnPropertySymbols(obj)
+        for(const symbolKey of symbolKeys){
+            result[Symbol(symbolKey.description)] = deepClone(obj[symbolKey])
+        }
+        return result;
+      }
+      const newObj = deepClone(oldObj);
+      newObj.colors.push("123");
+      newObj.set.delete(123)
+      console.log(newObj.aaa === oldObj.aaa);
+      console.log(newObj, oldObj);
     </script>
-</body>
-
+  </body>
 </html>
