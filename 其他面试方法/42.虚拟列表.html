@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .cotainer {
+        width: 400px;
+        height: 600px;
+        margin: 0 auto;
+        border: 1px solid red;
+        overflow-y: auto;
+      }
+      .item {
+        width: 100%;
+        height: 108px;
+        margin: 10px auto;
+        border: 1px solid pink;
+        box-sizing: border-box;
+      }
+      .block {
+        width: 100%;
+        height: 2000px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cotainer" id="container">
+      <div class="sroll-box" id="scroll-box">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="block"></div>
+      </div>
+    </div>
+
+    <script>
+      let arr = [];
+      for (let i = 0; i < 1000; i++) {
+        arr[i] = i;
+      }
+      let start = 0;
+      let end = 5;
+      const scrollBox = document.getElementById('scroll-box')
+      const itemArr = document.querySelectorAll(".item");
+      const cotainerEl = document.getElementById("container");
+      cotainerEl.addEventListener("scroll", (e) => {
+        const scrollTop = e.target.scrollTop;
+        scrollBox.style.transform = `translateY(${scrollTop}px)`
+        const scrollNum = Math.floor(scrollTop / 108)
+        start = scrollNum
+        end = end + scrollNum
+        init()
+      });
+      function init() {
+        const data = arr.slice(start, end);
+        itemArr.forEach((item, index) => {
+          item.innerText = data[index];
+        });
+      }
+      init();
+    </script>
+  </body>
+</html>

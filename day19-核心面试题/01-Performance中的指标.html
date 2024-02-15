@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+        DCL ==> 当HTML文档被完全加载和解析之后，DOMContentLoaded事件被触发
+        L   ==> onload事件耗时 当依赖的资源全部加载完毕后才会触发
+        FP  ==> 首次绘制 当一个像素点绘制到屏幕的时间
+        FCP ==> 有内容的绘制
+        FMP ==> 首次有意义的绘制
+     -->
+    <script>
+      for (var i = 1; i < 1000; i++) {
+        console.log(i);
+      }
+    </script>
+    <div>1</div>
+  </body>
+</html>
