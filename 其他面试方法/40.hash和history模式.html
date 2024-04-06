@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <button onclick="fn()">按钮</button>
-    <a href="#users">hash</a>
+  </head>
+  <body>
+    <div id="root"></div>
+    <ul>
+      <li><a href="#/a">/a</a></li>
+      <li><a href="#/b">/b</a></li>
+      <li id="history">history模式</li>
+    </ul>
     <script>
-        function fn(){
-            window.history.pushState({},'','/user')
-        }
+      // 当地址栏中的路径的哈希值发送变化的时候会执行这个回调函数
+      window.addEventListener("hashchange", () => {
+        console.log(window.location.hash);
+        let pathname = window.location.hash.slice(1); // #/a
+        document.getElementById("root").innerHTML = pathname;
+      });
+      const historyEl = document.getElementById("history");
+      historyEl.addEventListener("click", () => {
+        window.history.pushState({ page: 1 }, "", "/history");
+        document.getElementById("root").innerHTML = '/history';
+      });
     </script>
-<!--
+    <!--
     hash模式:
     hash模式下 后端无需做重定向 因为#后面变化 最后向服务器发送的地址也只是#前面的
     hash值变化浏览器不会重新发起请求 但是会触发window.hashChange事件 配合 location.hash
@@ -25,5 +37,5 @@
     history模式原理可以这样理解 改用history.pushState或history.replaceState来更改浏览器中的url并修改页面内容
         由于通过history的api调整 并不会向后端发起请求 所以也就达到了前端路由的目的。 
 -->
-</body>
+  </body>
 </html>
