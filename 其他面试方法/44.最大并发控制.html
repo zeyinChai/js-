@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function doTask(taskMap) {
+        return new Promise((resolve, reject) =>
+          setTimeout(() => {
+            console.log(taskMap.taskName);
+            resolve();
+          }, taskMap.timer)
+        );
+      }
+      class Control {
+        constructor(count) {
+          this.count = count;
+          this.cacheTask = [];
+          this.runningCount = 0;
+        }
+        run() {
+          if (this.runningCount < this.count && this.cacheTask.length) {
+            const curTask = this.cacheTask.shift();
+            this.runningCount++;
+            doTask(curTask).finally(() => {
+              this.runningCount--;
+              this.run();
+            });
+          }
+        }
+        addTask(taskName, timer) {
+          this.cacheTask.push({ taskName, timer });
+          this.run();
+        }
+      }
+      const control = new Control(2);
+      control.addTask("任务1", 1000);
+      control.addTask("任务2", 300);
+      control.addTask("任务3", 500);
+      control.addTask("任务4", 1200);
+      control.addTask("任务5", 300);
+    </script>
+  </body>
+</html>
