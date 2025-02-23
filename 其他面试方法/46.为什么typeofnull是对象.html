@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+        在 JavaScript 最初的实现中，typeof 的返回值是基于表示值的机器码类型来决定的
+    机器码：
+
+        000：表示对象，数据是对象的引用。
+        1：表示整型，数据是 31 位带符号整数。
+        010：表示双精度类型，数据是双精度数字。
+        100：表示字符串，数据是字符串。
+        110：表示布尔类型，数据是布尔值。
+
+    而 null 的所有 32 位机器码均为 0，这恰好与对象的类型标志位 000 相匹配。由于这个历史原因，
+    当使用 typeof 操作符判断 null 时，就会返回 object 。 
+    -->
+  </body>
+</html>
