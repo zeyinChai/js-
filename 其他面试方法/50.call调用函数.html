@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const obj = {
+        say(x) {
+          console.log(this, x);
+        },
+      };
+      //   在 JavaScript 里：a.b(c) 在 this 绑定行为上 等价于 (a.b).call(a, c)
+      //   意思是：先取出函数 a.b，然后用 a 作为 this 调用它
+      obj.say(123);
+      obj.say.call(obj, 123);
+      // ---------------------------------
+      function fn(val) {
+        console.log(this, val);
+        return val;
+      }
+      // 这里 a = fn, b = call , c = 123 所以得到下面的公式
+      console.log(fn.call(123), fn.call.call(fn, 123));
+      //   console.log(Function.prototype.call.call(fn, 123, 456));
+    </script>
+  </body>
+</html>
