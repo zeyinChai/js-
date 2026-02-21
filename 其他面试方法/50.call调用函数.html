@@ -22,8 +22,16 @@
         return val;
       }
       // 这里 a = fn, b = call , c = 123 所以得到下面的公式
-      console.log(fn.call(123), fn.call.call(fn, 123));
+      //   console.log(fn.call(123), fn.call.call(fn, 123));
       //   console.log(Function.prototype.call.call(fn, 123, 456));
+      console.log("=======================");
+      const r = console.log.call.call.call.apply((a) => a, [1, 2]);
+      console.log(r);
+      // console.log.call.call.call.apply((a) => a, [1, 2])
+      //    等价于 Function.prototype.call.apply((a) => a, [1, 2])
+      //         又因为 fn.apply(this,[xxx]) 其实就是 this.fn(xxx)
+      //              所以等价于 ((a)=>a).call(1,2)
+      console.log(((a) => a).call(1, 2));
     </script>
   </body>
 </html>
