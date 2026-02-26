@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // XSS（跨站脚本攻击）是攻击者把恶意 JavaScript 注入到页面中，在受害者浏览器执行。
+        // 本质：浏览器把“用户输入”当成“代码执行”。
+        // 怎么防：
+            // 1. 使用框架（比如 React 默认会转义） 
+            // 2. 禁止使用 innerHTML
+
+        // CSRF（跨站请求伪造）是攻击者诱导用户在已登录状态下，向受信任网站发送恶意请求。
+        // 本质：浏览器会自动携带 Cookie。
+        // 怎么防 CSRF：让服务器知道“请求是不是你页面发的”。
+            // 1. 最好是token存在localstoage里，页面提交时带上token
+            // 2. 浏览器跨站请求不带 Cookie。
+            // 3. 核心链路需要用户输入验证码
+    </script>
+</body>
+</html>
