@@ -8,9 +8,14 @@
   <body>
     Array.isArray()：这是最常用的方式，该方法可以直接判断一个值是否为数组。它是
     ES5 引入的 Array 构造函数的静态方法，返回一个布尔值。
+
     Object.prototype.toString.call()：通过调用 Object.prototype.toString
-    方法，获取值的内部类型，再进行比较判断。 instanceof 运算符：使用 instanceof
+    方法，获取值的内部类型，再进行比较判断，底层原理是每个属性都有一个内部类[[Class]]调用这个方法
+    的时候就会把内部类显示出来，es6之后，每个属性原型上有Symbol.toStringTag，直接返回的是这个
+
+    instanceof 运算符：使用 instanceof
     判断一个对象是否是一个类的实例。但是需要注意，它不仅判断对象的构造函数是否是数组，还会检查对象的原型链上是否存在数组的原型。
+
     constructor
     属性：通过判断一个值的构造函数是否是数组构造函数来确定是否为数组，同时需要注意误判的情况。
     typeof 运算符：使用 typeof 判断值的类型是否为 "object"，再通过判断其是否具有

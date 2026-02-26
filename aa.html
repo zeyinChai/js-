@@ -1,25 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
+
   <body>
     <script>
-      function bubble(data) {
-        for (let i = 0; i < data.length; i++) {
-          for (let j = 0; j < data.length - i; j++) {
-            if (data[j] > data[j + 1]) {
-              let temp = data[j];
-              data[j] = data[j+1];
-              data[j+1] = temp;
-            }
-          }
+      class Scheduler {
+        constructor(max) {
+          this.max = max;
+          this.count = 0;
+          this.queue = [];
         }
-        return data;
+        async add(fn) {
+          if (this.count >= this.max) {
+            this.queue.push(async () => {
+              this.count++;
+              await fn();
+              this.count--;
+              this.queue.length && this.queue.shift()();
+            });
+            return
+          }
+          this.count++;
+          await fn();
+          this.count--;
+          this.queue.length && this.queue.shift()();
+        }
       }
-      console.log(bubble([4, 2, 15, 13, 213, 1, 23, 123, 21, 8, 75, 45]));
+      const scheduler = new Scheduler(2);
+      function addTask(time, data) {
+        scheduler.add(() => {
+          return task(time, data);
+        });
+      }
+      function task(time, data) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            console.log(data);
+            resolve();
+          }, time);
+        });
+      }
+      addTask(1000, "1");
+      addTask(500, "2");
+      addTask(300, "3");
+      addTask(400, "4");
     </script>
   </body>
 </html>
