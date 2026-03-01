@@ -2,53 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-
   <body>
     <script>
-      class Scheduler {
-        constructor(max) {
-          this.max = max;
-          this.count = 0;
-          this.queue = [];
+      function fn(...arrays) {
+        if (arrays.length === 0) return [];
+        if (arrays.length === 1) return arrays[0];
+        let result = Array.from(new Set(arrays[0]));
+        for (let i = 1; i < arrays.length; i++) {
+          const cur = new Set(arrays[i]);
+          result = result.filter((item) => cur.has(item));
+          if (result.length === 0) break;
         }
-        async add(fn) {
-          if (this.count >= this.max) {
-            this.queue.push(async () => {
-              this.count++;
-              await fn();
-              this.count--;
-              this.queue.length && this.queue.shift()();
-            });
-            return
-          }
-          this.count++;
-          await fn();
-          this.count--;
-          this.queue.length && this.queue.shift()();
-        }
+        return result;
       }
-      const scheduler = new Scheduler(2);
-      function addTask(time, data) {
-        scheduler.add(() => {
-          return task(time, data);
-        });
-      }
-      function task(time, data) {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            console.log(data);
-            resolve();
-          }, time);
-        });
-      }
-      addTask(1000, "1");
-      addTask(500, "2");
-      addTask(300, "3");
-      addTask(400, "4");
+      const arr1 = [1, 2, 3, 4, 5];
+      const arr2 = [3, 4, 5, 6, 7, 8];
+      const arr3 = [5, 8, 9, 10, 11];
+      console.log(fn(arr1, arr2, arr3));
     </script>
   </body>
 </html>
