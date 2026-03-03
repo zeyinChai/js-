@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Skill 是什么？ 对一组工具能力的语义封装
+        // Skill = 编排逻辑 + 多个 Tool
+
+        // 当我们有n个提示词要干的事情 比如：写简历.md、写周报.md、敲代码.md
+        // 那么如果放在一个md里明显不合适，所以会拆成三个md文件
+        // 在每个文件的开头加一段很短的描述信息，写清楚这个文件是干什么的
+        // 大模型会根据这些描述信息，选择合适的技能来完成任务
+
+        // 同样是写简历，但是写法不一样，开发突出技能，产品突出业务理解
+        // 我们可以在 写简历文件夹里 新增skills.md写清楚不同职业路由到不同文件（同时还可以继续拆分）让ai继续下钻
+        // 这些被拆分出来的文件可以在一个references的文件夹里，主要大模型有需要就可以参考里面的材料
+        //    同时也可以把一些脚本比如生成简历pdf放到script文件夹下，并在不同的md说明掉用不同的脚本
+    </script>
+</body>
+</html>
