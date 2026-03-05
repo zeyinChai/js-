@@ -1,73 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        // Cookie 自动发送的完整条件
+      // Cookie 自动发送的完整条件
 
-        // 1. 域名匹配规则
-        // # Cookie 设置
-        // Set-Cookie: name=value; Domain=.example.com
+      // 1. 域名匹配规则
+      // # Cookie 设置
+      // Set-Cookie: name=value; Domain=.example.com
 
-        // # 哪些域名会发送？
-        // ✅ example.com
-        // ✅ www.example.com
-        // ✅ api.example.com
-        // ✅ blog.example.com
+      // # 哪些域名会发送？
+      // ✅ example.com
+      // ✅ www.example.com
+      // ✅ api.example.com
+      // ✅ blog.example.com
 
-        // ❌ anotherexample.com
-        // ❌ example.com.cn
+      // ❌ anotherexample.com
+      // ❌ example.com.cn
 
-        // 不设置 Domain → 只能当前域名（不含子域名）
-        // 设置 Domain=.example.com → 所有子域名都发送
-        // 不能设置到其他顶级域名
+      // 不设置 Domain → 只能当前域名（不含子域名）
+      // 设置 Domain=.example.com → 所有子域名都发送
+      // 不能设置到其他顶级域名
 
-        // 2.路径匹配规则
-        // Set-Cookie: name=value; Path=/admin
-        // 规则：请求路径必须以 Path 开头（前缀匹配）/admin /admin/user/profile
+      // 2.路径匹配规则
+      // Set-Cookie: name=value; Path=/admin
+      // 规则：请求路径必须以 Path 开头（前缀匹配）/admin /admin/user/profile
 
-        // 3.协议匹配（Secure 属性）
-        // Set-Cookie: name=value; Secure
-        // ✅ HTTPS 请求 → 发送 
-        // ❌ HTTP 请求 → 不发送
+      // 3.协议匹配（Secure 属性）
+      // Set-Cookie: name=value; Secure
+      // ✅ HTTPS 请求 → 发送
+      // ❌ HTTP 请求 → 不发送
 
-        // 4.SameSite 的影响
-        // Set-Cookie: session=xxx; SameSite=Strict 或 Lax
-        // Strict 模式：
-        // # ✅ 发送的情况
-        // 用户点击 example.com 的链接
-        // 在 example.com 页面内发请求
-        // # ❌ 不发送的情况
-        // 从 other.com 点击链接到 example.com
-        // 从 other.com 发请求到 example.com（CSRF）
-        // Lax 模式：
-        // # ✅ 发送的情况
-        // 用户点击 example.com 的链接（顶级导航）
-        // GET 请求（如图片、iframe）
-        // 在 example.com 页面内发请求
-        // # ❌ 不发送的情况
-        // POST 请求跨站
-        // 跨站的 AJAX/Fetch 请求
+      // 4.SameSite 的影响
+      // Set-Cookie: session=xxx; SameSite=Strict 或 Lax
+      // Strict 模式：
+      // # ✅ 发送的情况
+      // 用户点击 example.com 的链接
+      // 在 example.com 页面内发请求
+      // # ❌ 不发送的情况
+      // 从 other.com 点击链接到 example.com
+      // 从 other.com 发请求到 example.com（CSRF）
+      // Lax 模式：
+      // # ✅ 发送的情况
+      // 用户点击 example.com 的链接（顶级导航）
+      // GET 请求（如图片、iframe）
+      // 在 example.com 页面内发请求
+      // # ❌ 不发送的情况
+      // POST 请求跨站
+      // 跨站的 AJAX/Fetch 请求
 
-        // "SameSite 是防御 CSRF 的重要属性：
-        // Strict：最安全，只能同站发送，但用户体验差（从谷歌点过来都未登录）
-        // Lax（默认）：平衡方案
-        // ✅ 发送：同站请求、跨站 GET 链接
-        // ❌ 不发送：跨站 POST、图片、AJAX
-        // 实际开发中：
-        // - 普通登录用 Lax 就够了
-        // - 支付回调等必须跨站用 None
-        // - 银行类敏感应用用 Strict"
+      // "SameSite 是防御 CSRF 的重要属性：
+      // Strict：最安全，只能同站发送，但用户体验差（从谷歌点过来都未登录）
+      // Lax（默认）：平衡方案
+      // ✅ 发送：同站请求、跨站 GET 链接
+      // ❌ 不发送：跨站 POST、图片、AJAX
+      // 实际开发中：
+      // - 普通登录用 Lax 就够了
+      // - 支付回调等必须跨站用 None
+      // - 银行类敏感应用用 Strict"
 
-        // 5.跨域不携带cookie，如果希望携带的话
-        // 1.请求头设置：credentials: 'include'
-        // 2.后端：Access-Control-Allow-Origin 不能是 *
-        //      并且Access-Control-Allow-Credentials: true
+      // 5.跨域不携带cookie，如果希望携带的话
+      // 1.请求头设置：credentials: 'include'
+      // 2.后端：Access-Control-Allow-Origin 不能是 *
+      //      并且Access-Control-Allow-Credentials: true
 
+      // 业界解决方案：
+      //“CSRF Token 的核心思想是引入一个攻击者无法获取的随机值。服务端在用户访问页面时生成 token，
+      // 并绑定到用户 session，同时注入到页面中。
+      // 前端在发送敏感请求时必须携带该 token，服务端会校验 token 与 session 中是否一致。如果不一致则拒绝请求。
+      // 因为跨域情况下攻击网站无法读取目标站点页面内容，所以无法获取正确的 token，从而防止 CSRF 攻击。”
+
+      // 服务器校验流程：
+      // “CSRF 校验流程是这样的：浏览器请求时会自动携带 Cookie，服务端通过 Cookie 找到用户 session，
+      // 并取出该 session 中保存的 csrfToken。
+      // 前端在发送敏感请求时需要携带该 token，服务端对比 session 中的 token 和请求中的 token 是否一致，
+      // 如果一致才执行操作。”
     </script>
-</body>
+  </body>
 </html>
